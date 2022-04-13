@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", () => {
   // Execute this code when the page is fully loaded
   const thermostat = new Thermostat();
