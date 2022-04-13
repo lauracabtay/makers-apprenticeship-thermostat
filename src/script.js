@@ -1,5 +1,24 @@
 document.addEventListener("DOMContentLoaded", () => {
   // Execute this code when the page is fully loaded
+
+  document.querySelector('.select-city').addEventListener('submit', (event) => {
+    event.preventDefault();
+    const city = document.querySelector('.city-input').value;
+    displayWeather(city);
+  })
+
+  const displayWeather = (city) => {
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=21ef1a41bca3d148dda0245791799d41&units=metric`;
+
+    fetch(url)
+    .then((response) => {
+      return response.json()
+    })
+    .then((data) => {
+      document.querySelector('.city-temp').innerText = `${Math.round(data.main.temp)}°C in ${city}`;
+    })
+  }
+
   const thermostat = new Thermostat();
 
   let currentTemperature = () => {
@@ -59,3 +78,8 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector("#dot").style.backgroundColor = '#000000';
   });
 });
+
+
+
+
+
