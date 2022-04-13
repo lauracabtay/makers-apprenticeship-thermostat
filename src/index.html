@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow:wght@100&family=Exo:wght@900&family=Raleway:wght@100&family=Raleway:wght@500&family=Ubuntu:wght@300&family=Ubuntu:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <script src="thermostat.js"></script>
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="display">
+        <h1 id="current-temp"></h1>
+        <div class="indicators">
+          <h2 class="powerSaveMode" id="powerSave"></h2>
+          <div class="energyUsage">
+            <h2 class="energyUsage-txt">Energy Usage</h2>
+            <span class="energyUsageDot" id="dot"></span>
+          </div>
+        </div>
+      </div>
+      <div class="thermostat-change">
+        <div class="up-button">
+          <h3 id="increase">+</h3>
+        </div>
+        <div class="down-button">
+          <h3 id="decrease">–</h3>
+        </div>
+      </div>
+      <div class="options-button">
+        <div class="switch-power-save-mode">
+          <h2 class="switch-PSM-txt" id="switchModeBtn">Switch Mode</h3>
+        </div>
+        <div class="reset">
+          <h2 class="reset-txt" id="resetBtn">Reset</h3>
+        </div>
+      </div>
+    </div>
+    <script src="" async defer></script>
+  </body>
+</html>
