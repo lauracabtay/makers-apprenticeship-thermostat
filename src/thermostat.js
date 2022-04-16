@@ -4,10 +4,10 @@ class Thermostat {
 
     constructor() {
         this.temperature = 20;
-        this.MINIMUM = 10;
-        this.maximum = 25;
         this.powerSave = true;
         this.energyUsage = 'medium-usage';
+        this.MINIMUM = 10;
+        this.maximum = 25;
     }
 
     up(degrees) {
@@ -61,7 +61,14 @@ class Thermostat {
         return this.energyUsage;
     }
 
+    async getTemperature() {
+        const response = await fetch('http://localhost:4567/temperature');
+        const data = await response.json();
+        return data.temperature;
+    }
+
     getCurrentTemperature() {
-        return this.temperature;
+    console.log(this.getTemperature())
     }
 }
+

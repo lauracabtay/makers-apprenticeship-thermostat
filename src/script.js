@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const thermostat = new Thermostat();
 
   let currentTemperature = () => {
-      document.querySelector(".current-temp").innerHTML = `${thermostat.temperature}°C`;
+      document.querySelector(".current-temp").innerHTML = `${thermostat.getCurrentTemperature()}°C`;
   }
 
   let currentEnergyUsage = () => {
@@ -30,15 +30,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   let checkEnergyUsage = () => {
-    if (thermostat.temperature < 18) {
+    if (thermostat.showEnergyUsage() === 'low-usage') {
       document.querySelector("#dot").style.backgroundColor = '#6BCB77';
-      console.log('it should have turned green');
-    } else if (thermostat.temperature > 25) {
+    } else if (thermostat.showEnergyUsage() === 'high-usage') {
       document.querySelector("#dot").style.backgroundColor = '#FF8C32';
-      console.log('it should have turned orange');
     } else {
       document.querySelector("#dot").style.backgroundColor = '#000000';
-      console.log('it should be black');
     };
   }
 
@@ -77,6 +74,8 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector("#powerSave").innerHTML = ` Power Save ${thermostat.showPowerSavingMode()}`;
     document.querySelector("#dot").style.backgroundColor = '#000000';
   });
+
+
 });
 
 
