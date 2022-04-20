@@ -20,59 +20,69 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const thermostat = new Thermostat();
+  const dot = document.querySelector("#dot");
+  const currentTemp = document.querySelector(".current-temp");
+  const powerSave = document.querySelector("#powerSave")
 
   let currentTemperature = () => {
-      document.querySelector(".current-temp").innerHTML = `${thermostat.getCurrentTemperature()}°C`;
+    currentTemp.innerHTML = `${thermostat.temperature}°C`;
   }
 
-  let currentEnergyUsage = () => {
-    document.querySelector("#dot").style.backgroundColor = '#000000';
+  // let currentEnergyUsage = () => {
+  //   dot.style.backgroundColor = '#000000';
+  // }
+
+  let currentPowerSave = () => {
+    powerSave.innerHTML = `Power Save ${thermostat.showPowerSavingMode()}`;
   }
 
   let checkEnergyUsage = () => {
     if (thermostat.showEnergyUsage() === 'low-usage') {
-      document.querySelector("#dot").style.backgroundColor = '#6BCB77';
+      dot.style.backgroundColor = '#6BCB77';
+      console.log(thermostat.showEnergyUsage());
     } else if (thermostat.showEnergyUsage() === 'high-usage') {
-      document.querySelector("#dot").style.backgroundColor = '#FF8C32';
+      dot.style.backgroundColor = '#FF8C32';
+      console.log(thermostat.showEnergyUsage());
     } else {
-      document.querySelector("#dot").style.backgroundColor = '#000000';
+      dot.style.backgroundColor = '#000000';
+      console.log(thermostat.showEnergyUsage());
     };
   }
-
-  currentTemperature();
-  currentEnergyUsage();
   
+  currentTemperature();
+  checkEnergyUsage();
+  currentPowerSave();
+
   document.querySelector(".increase").addEventListener('click', () => {
     thermostat.up(1);
     currentTemperature();
-    checkEnergyUsage();
+    checkEnergyUsage() ;
   });
 
   document.querySelector(".decrease").addEventListener('click', () => {
     thermostat.down(1);
     currentTemperature();
-    checkEnergyUsage();
+    checkEnergyUsage() ;
   });
-
-  document.querySelector("#powerSave").innerHTML = `Power Save ${thermostat.showPowerSavingMode()}`;
 
   document.querySelector("#switchModeBtn").addEventListener('click', () => {
       if (!thermostat.powerSave && thermostat.temperature > 25) {
         thermostat.switchPowerSave();
-        document.querySelector("#powerSave").innerHTML = ` Power Save ${thermostat.showPowerSavingMode()}`;
-        document.querySelector(".current-temp").innerHTML = `${thermostat.maximum}°C`;
-        console.log('I reset temperature at 25 max');
+        currentPowerSave();
+        currentTemperature();
+        checkEnergyUsage() ;
       } else {
-          thermostat.switchPowerSave();
-        document.querySelector("#powerSave").innerHTML = ` Power Save ${thermostat.showPowerSavingMode()}`;
+        thermostat.switchPowerSave();
+        currentPowerSave();
+        checkEnergyUsage() ;
       }
   });
 
   document.querySelector("#resetBtn").addEventListener('click', () => {
     thermostat.reset();
-    document.querySelector(".current-temp").innerHTML = `${thermostat.temperature}°C`;
-    document.querySelector("#powerSave").innerHTML = ` Power Save ${thermostat.showPowerSavingMode()}`;
-    document.querySelector("#dot").style.backgroundColor = '#000000';
+    currentTemperature();
+    currentPowerSave();
+    checkEnergyUsage();
   });
 
 

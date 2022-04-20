@@ -7,29 +7,44 @@ class Thermostat {
         this.powerSave = true;
         this.energyUsage = 'medium-usage';
         this.MINIMUM = 10;
-        this.maximum = 25;
+        if (this.powerSave === true) {
+            this.maximum = 25;
+        } else {
+            this.maximum = 32;
+        }
     }
 
     up(degrees) {
         if(this.temperature + degrees >= this.maximum) {
-            return this.temperature = this.maximum;
+            this.temperature = this.maximum;
         } else {
-        return this.temperature += degrees;
+            this.temperature += degrees;
+            this.showEnergyUsage();
         }
+        return this.temperature
     }
 
     down(degrees) {
         if (this.temperature - degrees <= this.MINIMUM) {
             return this.temperature = this.MINIMUM;
         } else {
-            return this.temperature -= degrees;
+            this.temperature -= degrees;
+            this.showEnergyUsage();
         }
+        return this.temperature;
     }
 
     switchPowerSave() {
-        if (!this.powerSave) {
-            this.powerSave = true;
-            this.maximum = 25;
+        if (this.powerSave === false) {
+            if (this.temperature > 25) {
+                this.powerSave = true;
+                this.maximum = 25;
+                this.temperature = 25;
+                this.energyUsage = 'medium-usage';
+            } else {
+                this.powerSave = true;
+                this.maximum = 25;
+            }
         } else {
             this.powerSave = false;
             this.maximum = 32;
@@ -38,15 +53,18 @@ class Thermostat {
     }
 
     showPowerSavingMode() {
-        if (this.powerSave) {
-            return 'ON'
+        let powerSaveText = '';
+        if (this.powerSave === true) {
+            powerSaveText = 'ON';
         } else {
-            return 'OFF'
+            powerSaveText = 'OFF';
         }
+        return powerSaveText;
     }
 
     reset() {
         this.powerSave = true;
+        this.energyUsage = 'medium-usage';
         return this.temperature = 20;
     }
 
@@ -56,19 +74,31 @@ class Thermostat {
         } else if (this.temperature > 25) {
             this.energyUsage = 'high-usage';
         } else {
-            this.energyUsage;
+            this.energyUsage = 'medium-usage';
         }
         return this.energyUsage;
     }
 
-    async getTemperature() {
-        const response = await fetch('http://localhost:4567/temperature');
-        const data = await response.json();
-        return data.temperature;
-    }
+    // async getTemperature() {
+    //     try {
+    //         const response = await fetch('http://localhost:4567/temperature');
+    //         const data = await response.json();
+    //         this.temperature = data.temperature;
+    //     } catch(e) {
+    //         this.temperature = 20
+    //     }
+    //     return this.temperature;
+    // }
 
-    getCurrentTemperature() {
-    console.log(this.getTemperature())
-    }
+    // async getPowerSaveMode() {
+    //     try {
+    //         const response = await fetch('http://localhost:4567/temperature');
+    //         const data = await response.json();
+    //         this.powerSave = data.power_save_mode;
+    //     } catch(e) {
+    //         this.powerSave = true;
+    //     }
+    //     return this.powerSave;
+    // }
 }
 
