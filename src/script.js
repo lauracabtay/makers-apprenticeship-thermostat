@@ -24,13 +24,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const currentTemp = document.querySelector(".current-temp");
   const powerSave = document.querySelector("#powerSave")
 
-  let currentTemperature = () => {
-    currentTemp.innerHTML = `${thermostat.temperature}°C`;
+  let currentTemperature = async () => {
+    currentTemp.innerHTML = `${await thermostat.temperature}°C`;
   }
-
-  // let currentEnergyUsage = () => {
-  //   dot.style.backgroundColor = '#000000';
-  // }
 
   let currentPowerSave = () => {
     powerSave.innerHTML = `Power Save ${thermostat.showPowerSavingMode()}`;

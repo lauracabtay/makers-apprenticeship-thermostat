@@ -2,8 +2,8 @@
 
 class Thermostat {
 
-    constructor() {
-        this.temperature = 20;
+    constructor () {
+        this.temperature = this.getTemperature();
         this.powerSave = true;
         this.energyUsage = 'medium-usage';
         this.MINIMUM = 10;
@@ -16,12 +16,12 @@ class Thermostat {
 
     up(degrees) {
         if(this.temperature + degrees >= this.maximum) {
-            this.temperature = this.maximum;
+            return this.temperature = this.maximum;
         } else {
-            this.temperature += degrees;
             this.showEnergyUsage();
+            console.log('added 1 degree');
+            return this.temperature += degrees;
         }
-        return this.temperature
     }
 
     down(degrees) {
@@ -79,16 +79,16 @@ class Thermostat {
         return this.energyUsage;
     }
 
-    // async getTemperature() {
-    //     try {
-    //         const response = await fetch('http://localhost:4567/temperature');
-    //         const data = await response.json();
-    //         this.temperature = data.temperature;
-    //     } catch(e) {
-    //         this.temperature = 20
-    //     }
-    //     return this.temperature;
-    // }
+    async getTemperature() {
+        try {
+            const response = await fetch('http://localhost:4567/temperature');
+            const data = await response.json();
+            this.temperature = Math.round(parseFloat(data.temperature));
+        } catch(e) {
+            this.temperature = 20
+        }
+        return this.temperature;
+    }
 
     // async getPowerSaveMode() {
     //     try {
